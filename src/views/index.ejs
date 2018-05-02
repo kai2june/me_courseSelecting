@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title><%=title%></title>
+    </head>
+    <body>
+        <h1>Welcome to <%=title%></h1>
+        <%for(let i=0;i<nav.length;i++){%>
+        <li>
+            <a href="<%=nav[i].link%>"><%=nav[i].title%></a>
+        </li>
+        <%}%>
+    </body>
+</html>
