@@ -16,12 +16,18 @@ app.use('/js', express.static(path.join(__dirname, './node_modules/jquery/dist')
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+const courseRouter = require('./src/routes/courseRoutes')();
+const curriculumRouter = require('./src/routes/curriculumRoutes')();
+
+app.use('/course', courseRouter);
+app.use('/curriculum', curriculumRouter);
 app.get('/', (req, res) => {
-  res.render('index',
-      {
+  res.render(
+    'index',
+    {
       title: 'NCCU course system',
-      nav: [{ link: '/course', title: 'courses' }, { link: '/curriculum', title: 'curriculums' }]
-      }
+      nav: [{ link: '/course', title: 'course' }, { link: '/curriculum', title: 'curriculum' }]
+    }
   );
 });
 app.listen(port, () => {

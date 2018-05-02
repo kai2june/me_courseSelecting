@@ -3,14 +3,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <title><%=title%></title>
+        <title>COURSE</title>
     </head>
     <body>
-        <h1>Welcome to <%=title%></h1>
-        <%for(let i=0;i<nav.length;i++){%>
-        <li>
-            <a href="<%=nav[i].link%>"><%=nav[i].title%></a>
-        </li>
+        <h1>COURSE</h1>
+        <%for(let i=0; i<course.length; i++){%>
+            <ul>
+                <li><%=course[i].class%></li>
+            </ul>
         <%}%>
         <script src="/js/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
