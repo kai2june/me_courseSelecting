@@ -32,6 +32,13 @@ const allCourse = [
 
 const courseRouter = express.Router();
 const router = function () {
+  courseRouter.use((req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  });
   courseRouter.route('/')
     .get((req, res) => {
       res.render(
