@@ -26,7 +26,7 @@ const router = function () {
           const results = await col.insertOne(user);
           console.log(results);
           req.login(results.ops[0], () => {
-            res.redirect('/auth/profile');
+            res.redirect('/index');
           });
         } catch (err) {
           console.log(err);
@@ -36,7 +36,7 @@ const router = function () {
 
   authRouter.route('/login')
     .post(passport.authenticate('local', {
-      successRedirect: '/auth/profile',
+      successRedirect: '/index',
       failureRedirect: '/'
     }));
 
