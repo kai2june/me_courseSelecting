@@ -1,55 +1,51 @@
 const express = require('express');
-
-const allCourse = [
-  {
-    class: 'Java',
-    teacher: 'ChenCzenChia',
-    point: 3,
-    time: 'FriD56',
-    place: 'daRen301',
-    department: 'science',
-    level: 'acquired'
-  },
-  {
-    class: 'OS',
-    teacher: 'HuYUJong',
-    point: 3,
-    time: 'Tue234',
-    place: 'daRen301',
-    department: 'science',
-    level: 'required'
-  },
-  {
-    class: 'Computer Network',
-    teacher: 'ChangHongChin',
-    point: 3,
-    time: 'Thu234',
-    place: 'daRen106',
-    department: 'science',
-    level: 'group'
-  }
-];
+const {MongoClient} = require('mongodb');
 
 const courseRouter = express.Router();
 const router = function () {
-  courseRouter.use((req, res, next) => {
-    if (req.user) {
-      next();
-    } else {
-      res.redirect('/');
-    }
-  });
-  courseRouter.route('/')
-    .get((req, res) => {
-      res.render(
-        'course',
-        {
-          course: allCourse
+    courseRouter.use((req, res, next) => {
+        if (req.user) {
+            next();
+        } else {
+            res.redirect('/');
         }
-      );
     });
+    courseRouter.route('/')
+        .get((req, res) => {
+            (async function findAllCourses(){
+                const url = 'mongodb://localhost:27017';
+                const dbName = 'courseApp';
+                try{
+                    const client = await MongoClient.connect(url);
+                    const db = client.db(dbName);
+                    const coll = db.collection('courses');
+                    const rlt_findAllCourses = await coll.find().toArray();
+                    res.json(rlt_findAllCourses);
+                }catch(err){
+                    if(err)
+                        console.log(err);
+                }
+            }());
+        })
+        .post((req, res) => {
+            // res.send(req.body);
+            (async function findManyCourses(){
+                const url = 'mongodb://localhost:27017';
+                const dbName = 'courseApp';
+                try{
+                    const client = await MongoClient.connect(url);
+                    const db = client.db(dbName);
+                    const coll = db.collection('courses');
+                    const rlt_findManyCourses = await coll.find({department: req.body.department, degree: req.body.degree}).toArray();
+                    res.json(rlt_findManyCourses);
+                }catch(err){
+                    if(err)
+                        console.log(err);
+                }
+            }());
+        });
 
-  return courseRouter;
+    return courseRouter;
 };
 
 module.exports = router;

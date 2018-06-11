@@ -6,13 +6,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
-const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(morgan('combined'));
-app.use(morgan('tiny'));
+// app.use(morgan('combined'));
+// app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -30,16 +29,19 @@ const authRouter = require('./src/routes/authRoutes')();
 const indexRouter = require('./src/routes/indexRoutes')();
 const courseRouter = require('./src/routes/courseRoutes')();
 const curriculumRouter = require('./src/routes/curriculumRoutes')();
+const adminRouter = require('./src/routes/adminRoutes')();
 
 app.use('/auth', authRouter);
 app.use('/index', indexRouter);
 app.use('/course', courseRouter);
 app.use('/curriculum', curriculumRouter);
+app.use('/admin', adminRouter);
+
 app.get('/', (req, res) => {
-  res.render('login');
+    res.render('login');
 });
 
 app.listen(port, () => {
-  debug(`Running on port ${chalk.green(port)}`);
-  console.log(`Running on port ${chalk.green(port)}`);
+    debug(`Running on port ${chalk.green(port)}`);
+    console.log(`Running on port ${chalk.green(port)}`);
 });
