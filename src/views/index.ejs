@@ -64,21 +64,21 @@
         <!--<%}%>-->
 
 
-        <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
+<!--        <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
             <%for(let i=0; i<college.length; i++){%>
-                <select id="academySelect" onchange="myAlert()">
+                <select id="academySelect" onchange="show()">
                     <%for(let j=0; j<college[i].length; j++){%>
                         <option value="<%=college[i][j]%>"><%=college[i][j]%></option>
                     <%}%>
                 </select>
             <%}%>
-        </form>
+        </form>-->
         
-        <!--<form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
-            <select name="academy" id="academySelect" onchange="myAlert()">
+        <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
+            <select name="academy" id="academySelect" onchange="showDegree()">
                 <option value="none" name="academy" id="academy">-</option>
-                <option value="science" name="academy" id="academy">理學院</option>
                 <option value="literature" name="academy" id="academy">文學院</option>
+                <option value="science" name="academy" id="academy">理學院</option>
                 <option value="society" name="academy" id="academy">社科院</option>
                 <option value="law" name="academy" id="academy">法學院</option>
                 <option value="commerce" name="academy" id="academy">商學院</option>
@@ -87,28 +87,100 @@
                 <option value="international" name="academy" id="academy">國際學院</option>
                 <option value="education" name="academy" id="academy">教育學院</option>
             </select>
-            <select name="degree" id="degreeSelect">
-                <option value="none" name="degree" id="degree">-</option>
-                <option value="bachelor" name="degree" id="degree">學士班</option>
-                <option value="master" name="degree" id="degree">碩士班</option>
-                <option value="doctor" name="degree" id="degree">博士班</option>
-            </select>
-            <select name="department" id="departmentSelect">
-                <option value="none" name="department" id="department">-</option>
-                <option value="psycology" name="department" id="department">心理系</option>
-                <option value="mathematics" name="department" id="department">應數系</option>
-                <option value="computerScience" name="department" id="department">資科系</option>
-            </select>
             <input type="submit" value="query">
-        </form>-->
+        </form>
  
         <script>
-            const college = {'理學院': {'學士班':['心理系', '應數系', '資科系'], '碩士班': ['心理系', '應數系', '資科系'],'博士班': ['心理系', '應數系', '資科系']}};
-            function myAlert(){
-
-                alert($("#academySelect").val());
-                
+            const college = {
+                '文學院': {
+                    '學士班': ['中文系', '歷史系', '哲學系'], 
+                    '碩士班': ['圖資所', '宗教所', '台史所', '台文所'],
+                    '博士班': ['華文教學博士']
+                },
+                '理學院': {
+                    '學士班': ['心理系', '應數系', '資科系'], 
+                    '碩士班': ['神經所', '應物所', '資科所'],
+                    '博士班': ['社群與人智博士']
+                }
+            };
+            function showDegree(){
+                $("#queryCourseForm").append('<select name="degree" id="degreeSelect" onchange="showDepartment()">\
+                <option value="none" name="degree" id="degree">-</option>\
+                <option value="bachelor" name="degree" id="degree">學士班</option>\
+                <option value="master" name="degree" id="degree">碩士班</option>\
+                <option value="doctor" name="degree" id="degree">博士班</option>\
+                </select>');
             }
+            function showDepartment(){
+                switch($("#academySelect").val()){
+                    case 'literature':
+                        showDepartmentLiterature();
+                        break;
+                    case 'science':
+                        showDepartmentScience();
+                        break;
+                    default:
+                        alert('Other academy no department filled in yet');
+                        break;
+                }
+            }
+            function showDepartmentLiterature(){
+                switch( $("#degreeSelect").val() ){
+                    case 'bachelor':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="chinese" name="department" id="department">中文系</option>\
+                        <option value="history" name="department" id="department">歷史系</option>\
+                        <option value="philosophy" name="department" id="department">哲學系</option>\
+                        </select>');
+                        break;
+                    case 'master':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="chinese" name="department" id="department">中文所</option>\
+                        <option value="libraryInformation" name="department" id="department">圖資所</option>\
+                        <option value="religion" name="department" id="department">宗教所</option>\
+                        <option value="taiwanHistory" name="department" id="department">台史所</option>\
+                        <option value="taiwanCulture" name="department" id="department">台文所</option>\
+                        </select>');
+                        break;
+                    case 'doctor':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="chineseTeaching" name="department" id="department">華文教學博士</option>\
+                        </select>');
+                        break;
+                }
+
+            }
+            function showDepartmentScience(){
+                switch( $("#degreeSelect").val() ){
+                    case 'bachelor':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="psycology" name="department" id="department">心理系</option>\
+                        <option value="mathematics" name="department" id="department">應數系</option>\
+                        <option value="computerScience" name="department" id="department">資科系</option>\
+                        </select>');
+                        break;
+                    case 'master':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="nerve" name="department" id="department">神經所</option>\
+                        <option value="physics" name="department" id="department">應物所</option>\
+                        <option value="computerScience" name="department" id="department">資科所</option>\
+                        </select>');
+                        break;
+                    case 'doctor':
+                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
+                        <option value="none" name="department" id="department">-</option>\
+                        <option value="societyAI" name="department" id="department">社群與人智博士</option>\
+                        </select>');
+                        break;
+                }
+
+            }
+
         </script>
-            </body>
+    </body>
 </html>
