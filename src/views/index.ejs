@@ -76,109 +76,214 @@
         
         <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
             <select name="academy" id="academySelect" onchange="showDegree()">
-                <option value="none" name="academy" id="academy">-</option>
-                <option value="literature" name="academy" id="academy">文學院</option>
-                <option value="science" name="academy" id="academy">理學院</option>
-                <option value="society" name="academy" id="academy">社科院</option>
-                <option value="law" name="academy" id="academy">法學院</option>
-                <option value="commerce" name="academy" id="academy">商學院</option>
-                <option value="foreign" name="academy" id="academy">外文學院</option>
-                <option value="broadcast" name="academy" id="academy">傳播學院</option>
-                <option value="international" name="academy" id="academy">國際學院</option>
-                <option value="education" name="academy" id="academy">教育學院</option>
+                <option value="none">-</option>
+                <option value="integrated_general">整開_通識</option>
+                <option value="minor_credited_internship">輔系_學分學程_教學實習與實務</option>
+                <option value="service_PE_defenseEducation">服務學習_體育_全民國防課程</option>
+                <option value="literature">文學院</option>
+                <option value="science">理學院</option>
+                <option value="society">社科院</option>
+                <option value="law">法學院</option>
+                <option value="commerce">商學院</option>
+                <option value="foreign">外文學院</option>
+                <option value="broadcast">傳播學院</option>
+                <option value="international">國際學院</option>
+                <option value="education">教育學院</option>
+            </select>
+            <select name="degree" id="degreeSelect" onchange="showDepartment()">
+            </select>
+            <select name="department" id="departmentSelect">
             </select>
             <input type="submit" value="query">
         </form>
  
         <script>
-            const college = {
-                '文學院': {
-                    '學士班': ['中文系', '歷史系', '哲學系'], 
-                    '碩士班': ['圖資所', '宗教所', '台史所', '台文所'],
-                    '博士班': ['華文教學博士']
-                },
-                '理學院': {
-                    '學士班': ['心理系', '應數系', '資科系'], 
-                    '碩士班': ['神經所', '應物所', '資科所'],
-                    '博士班': ['社群與人智博士']
-                }
-            };
+            // const college = {
+            //     '文學院': {
+            //         '學士班': ['中文系', '歷史系', '哲學系'], 
+            //         '碩士班': ['圖資所', '宗教所', '台史所', '台文所'],
+            //         '博士班': ['華文教學博士']
+            //     },
+            //     '理學院': {
+            //         '學士班': ['心理系', '應數系', '資科系'], 
+            //         '碩士班': ['神經所', '應物所', '資科所'],
+            //         '博士班': ['社群與人智博士']
+            //     }
+            // };
             function showDegree(){
-                $("#queryCourseForm").append('<select name="degree" id="degreeSelect" onchange="showDepartment()">\
-                <option value="none" name="degree" id="degree">-</option>\
-                <option value="bachelor" name="degree" id="degree">學士班</option>\
-                <option value="master" name="degree" id="degree">碩士班</option>\
-                <option value="doctor" name="degree" id="degree">博士班</option>\
-                </select>');
+                $("#departmentSelect").html('<option value="none">-</option>');
+
+                switch( $("#academySelect").val() ){
+                    case 'integrated_general':
+                        showDegreeIntegratedGeneral();
+                        break;
+                    case 'minor_credited_internship':
+                        showDegreeMinorCreditedInternship();
+                        break;
+                    case 'service_PE_defenseEducation':
+                        showDegreeServicePEDefenseEducation();
+                        break;
+                    default:
+                        showDegreeBachelorMasterDoctor();
+                        break;
+                }
             }
+            function showDegreeIntegratedGeneral(){
+                $("#degreeSelect").html('\
+                <option value="none">-</option>\
+                <option value="integrated">整開</option>\
+                <option value="general">通識</option>');
+            }
+            function showDegreeMinorCreditedInternship(){
+                $("#degreeSelect").html('\
+                <option value="none">-</option>\
+                <option value="minor">輔系</option>\
+                <option value="credited">學分學程</option>\
+                <option value="internship">教學實習與實務</option>');
+            }
+            function showDegreeServicePEDefenseEducation(){
+                $("#degreeSelect").html('\
+                <option value="none">-</option>\
+                <option value="service">服務</option>\
+                <option value="PE">體育</option>\
+                <option value="defenseEducation">國防</option>');
+            }
+            function showDegreeBachelorMasterDoctor(){
+                $("#degreeSelect").html('\
+                <option value="none">-</option>\
+                <option value="bachelor">學士班</option>\
+                <option value="master">碩士班</option>\
+                <option value="doctor">博士班</option>');
+            };
+
+
             function showDepartment(){
                 switch($("#academySelect").val()){
+                    case 'integrated_general':
+                        showDepartmentIntegratedGeneral();
+                        break;
+                    case 'minor_credited_internship':
+                        showDepartmentMinorCreditedInternship();
+                        break;    
+                    case 'service_PE_defenseEducation':
+                        showDepartmentServicePEDefenseEducation();
+                        break;
                     case 'literature':
                         showDepartmentLiterature();
                         break;
                     case 'science':
                         showDepartmentScience();
                         break;
-                    default:
-                        alert('Other academy no department filled in yet');
-                        break;
                 }
             }
+            function showDepartmentIntegratedGeneral(){
+                switch( $("#degreeSelect").val() ){
+                    case 'integrated':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="management">管理學</option>\
+                        <option value="economics">經濟學</option>');
+                        break;
+                    case 'general':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="humanities">人文通</option>\
+                        <option value="socialSciences">社會通</option>\
+                        <option value="naturalSciences">自然通</option>');
+                        break;
+                }
+            };
+            function showDepartmentMinorCreditedInternship(){
+                switch( $("#degreeSelect").val() ){
+                    case 'minor':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="trade">貿輔</option>\
+                        <option value="accounting">會輔</option>\
+                        <option value="japanese">日輔</option>');
+                        break;
+                    case 'credited':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="creativity">創意學程</option>\
+                        <option value="patent">專利學程</option>\
+                        <option value="artIndustry">藝術產業經營學程</option>');
+                        break;
+                    case 'internship':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="intership">教育實習與實務</option>');
+                        break;
+                }
+            };
+            function showDepartmentServicePEDefenseEducation(){
+                switch( $("#degreeSelect").val() ){
+                    case 'service':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="service">服務學習課程</option>');
+                        break;
+                    case 'PE':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="PErequired">體育必修</option>\
+                        <option value="PEacquired">體育選修</option>\
+                        <option value="PEschoolTeam">體育代表隊</option>');
+                        break;
+                    case 'defenseEducation':
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="defenseEducation">全民國防課程</option>');
+                        break;
+                }
+            };
             function showDepartmentLiterature(){
                 switch( $("#degreeSelect").val() ){
                     case 'bachelor':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="chinese" name="department" id="department">中文系</option>\
-                        <option value="history" name="department" id="department">歷史系</option>\
-                        <option value="philosophy" name="department" id="department">哲學系</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="chinese">中文系</option>\
+                        <option value="history">歷史系</option>\
+                        <option value="philosophy">哲學系</option>');
                         break;
                     case 'master':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="chinese" name="department" id="department">中文所</option>\
-                        <option value="libraryInformation" name="department" id="department">圖資所</option>\
-                        <option value="religion" name="department" id="department">宗教所</option>\
-                        <option value="taiwanHistory" name="department" id="department">台史所</option>\
-                        <option value="taiwanCulture" name="department" id="department">台文所</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="chinese">中文所</option>\
+                        <option value="libraryInformation">圖資所</option>\
+                        <option value="religion">宗教所</option>\
+                        <option value="taiwanHistory">台史所</option>\
+                        <option value="taiwanCulture">台文所</option>');
                         break;
                     case 'doctor':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="chineseTeaching" name="department" id="department">華文教學博士</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="chineseTeaching">華文教學博士</option>');
                         break;
                 }
-
             }
             function showDepartmentScience(){
                 switch( $("#degreeSelect").val() ){
                     case 'bachelor':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="psycology" name="department" id="department">心理系</option>\
-                        <option value="mathematics" name="department" id="department">應數系</option>\
-                        <option value="computerScience" name="department" id="department">資科系</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="psycology">心理系</option>\
+                        <option value="mathematics">應數系</option>\
+                        <option value="computerScience">資科系</option>');
                         break;
                     case 'master':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="nerve" name="department" id="department">神經所</option>\
-                        <option value="physics" name="department" id="department">應物所</option>\
-                        <option value="computerScience" name="department" id="department">資科所</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="nerve">神經所</option>\
+                        <option value="physics">應物所</option>\
+                        <option value="computerScience">資科所</option>');
                         break;
                     case 'doctor':
-                        $("#queryCourseForm").append('<select name="department" id="departmentSelect">\
-                        <option value="none" name="department" id="department">-</option>\
-                        <option value="societyAI" name="department" id="department">社群與人智博士</option>\
-                        </select>');
+                        $("#departmentSelect").html('\
+                        <option value="none">-</option>\
+                        <option value="societyAI">社群與人智博士</option>');
                         break;
                 }
-
             }
 
         </script>

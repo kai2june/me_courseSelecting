@@ -41,7 +41,7 @@ const courses = [
         place: 'BaiNien113',
         department: 'chinese',
         degree: 'master',
-        level: 'common'
+        level: 'general'
     }
 ];
 
