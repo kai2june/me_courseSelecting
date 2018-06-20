@@ -37,6 +37,7 @@ const router = function () {
                     const db = client.db(dbName);
                     const coll = db.collection('courses');
                     const rlt_findManyCourses = await coll.find({department: req.body.department, degree: req.body.degree}).toArray();
+                    console.log(req.body)
                     res.json(rlt_findManyCourses);
                 }catch(err){
                     if(err)
