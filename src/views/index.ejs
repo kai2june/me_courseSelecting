@@ -100,98 +100,141 @@
                 <option value="education">教育學院</option>
             </select>
             <select name="degree" class="degreeSelect" onchange="showDepartment()"></select>
-            <select name="department" class="departmentSelect" onchange="showPlus()"></select>
-            <button type="button" name="plus" class="plusBtn" style="display: none" onclick="newSelect()">+</button>
+            <select name="department" class="departmentSelect"></select>
         </div>
     </div>
+    <button type="button" name="plus" class="plusBtn" onclick="newSelect()">+</button>
     <input type="submit" value="query">
 </form>
 
 <script>
-    // const college = {
-    //     '文學院': {
-    //         '學士班': ['中文系', '歷史系', '哲學系'],
-    //         '碩士班': ['圖資所', '宗教所', '台史所', '台文所'],
-    //         '博士班': ['華文教學博士']
-    //     },
-    //     '理學院': {
-    //         '學士班': ['心理系', '應數系', '資科系'],
-    //         '碩士班': ['神經所', '應物所', '資科所'],
-    //         '博士班': ['社群與人智博士']
-    //     }
-    // };
+    const college = {
+        'integrated_general':{
+            'integrated':[],
+            'general':[]
+        },
+        'minor_credited_internship':{
+            'minor':[],
+            'credited':[],
+            'internship':[]
+        },
+        'service_PE_defenseEducation':{
+            'service':[],
+            'PE':[],
+            'defenseEducation':[]
+        },
+        'society':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'law':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'commerce':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'foreign':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'broadcast':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'international':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'education':{
+            'bachelor':[],
+            'master': [],
+            'doctor':[]
+        },
+        'literature': {
+            'bachelor': ['中文系', '歷史系', '哲學系'],
+            'master': ['圖資所', '宗教所', '台史所', '台文所'],
+            'doctor': ['華文教學博士']
+        },
+        'science': {
+            'bachelor': ['心理系', '應數系', '資科系'],
+            'master': ['神經所', '應物所', '資科所'],
+            'doctor': ['社群與人智博士']
+        }
+    };
+    const value2name={"integrated_general":"整開_通識","minor_credited_internship":"輔系_學分學程_教學實習與實務",
+        "service_PE_defenseEducation":"服務學習_體育_全民國防課程",
+        "literature":"文學院","science":"理學院","society":"社科院","law":"法學院","commerce":"商學院",
+        "foreign":"外文學院","broadcast":"傳播學院","international":"國際學院","education":"教育學院",
+        "integrated":"整開","general":"通識","minor":"輔系","credited":"學分學程","internship":"教學實習與實務",
+        "service":"服務","PE":"體育","defenseEducation":"國防","bachelor":"學士班","master":"碩士班","doctor":"博士班",
+    "management":"管理學","economics":"經濟學","humanities":"人文通","socialSciences":"社會通","naturalSciences":"自然通",
+    "trade":"貿輔","accounting":"會輔","japanese":"日輔","creativity":"創意學程","patent":"專利學程","artIndustry":"藝術產業經營學程",
+    "intership":"教育實習與實務","service":"服務學習課程","PErequired":"體育必修","PEacquired":"體育選修","PEschoolTeam":"體育代表隊",
+    "defenseEducation":"全民國防課程",
+    };
+
     var id=1;//use to generate dynamic id
+
+    function test() {
+        for(var key in value2name)
+            console.log(key+" "+value2name[key]);
+    }
+
     $("#queryCourseForm").submit(function (event) {
         //error handling
-        if ($("#selection-div-"+getId()+" .academySelect").val() === "none" || $("#selection-div-"+getId()+" .degreeSelect").val() === "none" || $("#selection-div-"+getId()+" .departmentSelect").val() === "none") {
+        if(!checkIfSelect()){
             alert("Please select!!");
             event.preventDefault();
         }
 
     });
+    function checkIfSelect(){//error handling
+        for(var i=1;i<=getId();i++) {
+            if ($("#selection-div-" + i + " .academySelect").val() === "none" || $("#selection-div-" + i + " .degreeSelect").val() === "none" || $("#selection-div-" + i + " .departmentSelect").val() === "none") {
+                return false;
+            }
+        }
+        return true;
+    }
     function getId(){
         return id;
     }
     function newSelect() {
+        if(!checkIfSelect()){
+            alert("Don't be too greedy!");
+            return;
+        }
         id++;
-        $(".selection-div").append("<div id=\"select-div-"+getId()+"\"></div>");
-        $(".academySelect").clone().appendTo($("#select-div-"+getId()));
+        console.log("New Select Block!");
+        $(".selection-div").append("<div id=\"selection-div-"+getId()+"\"></div>");
+        $("#selection-div-1 .academySelect").clone().appendTo($("#selection-div-"+getId()));
+        $("#selection-div-1 .degreeSelect").clone().appendTo($("#selection-div-"+getId()));
+        $("#selection-div-1 .departmentSelect").clone().appendTo($("#selection-div-"+getId()));
+        $("#selection-div-"+getId()).append("<button type=\"button\" name=\"remove\" class=\"removeBtn\" style=\"display: inline-block\" onclick=\"removeDiv(this)\">-</button>");
     }
-
-    function showPlus() {
-        $(".plusBtn").css('display', 'inline-block');
+    function removeDiv(btn){
+        var target=$(btn).closest('div').attr('id');
+        $('#'+target).remove();
     }
 
     function showDegree() {
-        $(".departmentSelect").html('<option value="none">-</option>');
-
-        switch ($(".academySelect").val()) {
-            case 'integrated_general':
-                showDegreeIntegratedGeneral();
-                break;
-            case 'minor_credited_internship':
-                showDegreeMinorCreditedInternship();
-                break;
-            case 'service_PE_defenseEducation':
-                showDegreeServicePEDefenseEducation();
-                break;
-            default:
-                showDegreeBachelorMasterDoctor();
-                break;
+        $("#selection-div-" + getId() +" .departmentSelect").html('<option value="none">-</option>');
+        var academySelect=$("#selection-div-" + getId() +" .academySelect").val();
+        var row=["<option value=\"none\">-</option>"];
+        for(key in college[academySelect]) {
+            //console.log(key);
+            row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
         }
+        $("#selection-div-" + getId() +" .degreeSelect").html(row);
     }
-
-    function showDegreeIntegratedGeneral() {
-        $(".degreeSelect").html('\
-                <option value="none">-</option>\
-                <option value="integrated">整開</option>\
-                <option value="general">通識</option>');
-    }
-
-    function showDegreeMinorCreditedInternship() {
-        $(".degreeSelect").html('\
-                <option value="none">-</option>\
-                <option value="minor">輔系</option>\
-                <option value="credited">學分學程</option>\
-                <option value="internship">教學實習與實務</option>');
-    }
-
-    function showDegreeServicePEDefenseEducation() {
-        $(".degreeSelect").html('\
-                <option value="none">-</option>\
-                <option value="service">服務</option>\
-                <option value="PE">體育</option>\
-                <option value="defenseEducation">國防</option>');
-    }
-
-    function showDegreeBachelorMasterDoctor() {
-        $(".degreeSelect").html('\
-                <option value="none">-</option>\
-                <option value="bachelor">學士班</option>\
-                <option value="master">碩士班</option>\
-                <option value="doctor">博士班</option>');
-    };
-
 
     function showDepartment() {
         switch ($(".academySelect").val()) {

@@ -2,7 +2,7 @@ const express = require('express');
 
 const indexRouter = express.Router();
 
-const academy = ['-', '理學院', '文學院', '社科院', '法學院', '商學院', '外文學院', '傳播學院', '國際學院', '教育學院'];
+const academy = ['-', 'integrated_general', 'minor_credited_internship', 'service_PE_defenseEducation', 'literature', 'science', 'society', 'law', 'commerce', 'foreign','broadcast','international','education'];
 const degree = ['-', '學士班', '碩士班', '博士班'];
 const department = [['-'], ['資科系'], ['中文系'], ['社會系'], ['法律系'], ['金融系'], ['歐語系'], ['新聞系'], ['外交系'], ['教育系']];
 
