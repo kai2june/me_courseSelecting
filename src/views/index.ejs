@@ -110,18 +110,18 @@
 <script>
     const college = {
         'integrated_general':{
-            'integrated':[],
-            'general':[]
+            'integrated':['management','economics'],
+            'general':['humanities','socialSciences','naturalSciences']
         },
         'minor_credited_internship':{
-            'minor':[],
-            'credited':[],
-            'internship':[]
+            'minor':['trade','accounting','japanese'],
+            'credited':['creativity','patent','artIndustry'],
+            'internship':['internship']
         },
         'service_PE_defenseEducation':{
-            'service':[],
-            'PE':[],
-            'defenseEducation':[]
+            'service':['serviceCourse'],
+            'PE':['PErequired','PEacquired','PEschoolTeam'],
+            'defenseEducation':['defenseEducationCourse']
         },
         'society':{
             'bachelor':[],
@@ -159,14 +159,14 @@
             'doctor':[]
         },
         'literature': {
-            'bachelor': ['中文系', '歷史系', '哲學系'],
-            'master': ['圖資所', '宗教所', '台史所', '台文所'],
-            'doctor': ['華文教學博士']
+            'bachelor': ['chinese','history','philosophy'],
+            'master': ['chineseM','libraryInformation','religion','taiwanHistory','taiwanCulture'],
+            'doctor': ['chineseTeaching']
         },
         'science': {
-            'bachelor': ['心理系', '應數系', '資科系'],
-            'master': ['神經所', '應物所', '資科所'],
-            'doctor': ['社群與人智博士']
+            'bachelor': ['psycology','mathematics','computerScience'],
+            'master': ['nerve','physics','computerScienceM'],
+            'doctor': ['societyAI']
         }
     };
     const value2name={"integrated_general":"整開_通識","minor_credited_internship":"輔系_學分學程_教學實習與實務",
@@ -175,10 +175,12 @@
         "foreign":"外文學院","broadcast":"傳播學院","international":"國際學院","education":"教育學院",
         "integrated":"整開","general":"通識","minor":"輔系","credited":"學分學程","internship":"教學實習與實務",
         "service":"服務","PE":"體育","defenseEducation":"國防","bachelor":"學士班","master":"碩士班","doctor":"博士班",
-    "management":"管理學","economics":"經濟學","humanities":"人文通","socialSciences":"社會通","naturalSciences":"自然通",
-    "trade":"貿輔","accounting":"會輔","japanese":"日輔","creativity":"創意學程","patent":"專利學程","artIndustry":"藝術產業經營學程",
-    "intership":"教育實習與實務","service":"服務學習課程","PErequired":"體育必修","PEacquired":"體育選修","PEschoolTeam":"體育代表隊",
-    "defenseEducation":"全民國防課程",
+        "management":"管理學","economics":"經濟學","humanities":"人文通","socialSciences":"社會通","naturalSciences":"自然通",
+        "trade":"貿輔","accounting":"會輔","japanese":"日輔","creativity":"創意學程","patent":"專利學程","artIndustry":"藝術產業經營學程",
+        "intership":"教育實習與實務","serviceCourse":"服務學習課程","PErequired":"體育必修","PEacquired":"體育選修","PEschoolTeam":"體育代表隊",
+        "defenseEducationCourse":"全民國防課程","chinese":"中文系","history":"歷史系","philosophy":"哲學系","chineseM":"中文所",
+        "libraryInformation":"圖資所","religion":"宗教所","taiwanHistory":"台史所","taiwanCulture":"台文所","chineseTeaching":"華文教學博士",
+        "psycology":"心理系", "mathematics":"應數系", "computerScience":"資科系", "nerve":"神經所", "physics":"應物所", "computerScienceM":"資科所", "societyAI":"社群與人智博士",
     };
 
     var id=1;//use to generate dynamic id
@@ -237,137 +239,14 @@
     }
 
     function showDepartment() {
-        switch ($(".academySelect").val()) {
-            case 'integrated_general':
-                showDepartmentIntegratedGeneral();
-                break;
-            case 'minor_credited_internship':
-                showDepartmentMinorCreditedInternship();
-                break;
-            case 'service_PE_defenseEducation':
-                showDepartmentServicePEDefenseEducation();
-                break;
-            case 'literature':
-                showDepartmentLiterature();
-                break;
-            case 'science':
-                showDepartmentScience();
-                break;
+        var academySelect=$("#selection-div-" + getId() +" .academySelect").val();
+        var degreeSelect=$("#selection-div-" + getId() +" .degreeSelect").val();
+        var row=["<option value=\"none\">-</option>"];
+        for(var i=0;i<college[academySelect][degreeSelect].length;i++) {
+            key=college[academySelect][degreeSelect][i];
+            row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
         }
-    }
-
-    function showDepartmentIntegratedGeneral() {
-        switch ($(".degreeSelect").val()) {
-            case 'integrated':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="management">管理學</option>\
-                        <option value="economics">經濟學</option>');
-                break;
-            case 'general':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="humanities">人文通</option>\
-                        <option value="socialSciences">社會通</option>\
-                        <option value="naturalSciences">自然通</option>');
-                break;
-        }
-    };
-
-    function showDepartmentMinorCreditedInternship() {
-        switch ($(".degreeSelect").val()) {
-            case 'minor':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="trade">貿輔</option>\
-                        <option value="accounting">會輔</option>\
-                        <option value="japanese">日輔</option>');
-                break;
-            case 'credited':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="creativity">創意學程</option>\
-                        <option value="patent">專利學程</option>\
-                        <option value="artIndustry">藝術產業經營學程</option>');
-                break;
-            case 'internship':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="intership">教育實習與實務</option>');
-                break;
-        }
-    };
-
-    function showDepartmentServicePEDefenseEducation() {
-        switch ($(".degreeSelect").val()) {
-            case 'service':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="service">服務學習課程</option>');
-                break;
-            case 'PE':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="PErequired">體育必修</option>\
-                        <option value="PEacquired">體育選修</option>\
-                        <option value="PEschoolTeam">體育代表隊</option>');
-                break;
-            case 'defenseEducation':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="defenseEducation">全民國防課程</option>');
-                break;
-        }
-    };
-
-    function showDepartmentLiterature() {
-        switch ($(".degreeSelect").val()) {
-            case 'bachelor':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="chinese">中文系</option>\
-                        <option value="history">歷史系</option>\
-                        <option value="philosophy">哲學系</option>');
-                break;
-            case 'master':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="chinese">中文所</option>\
-                        <option value="libraryInformation">圖資所</option>\
-                        <option value="religion">宗教所</option>\
-                        <option value="taiwanHistory">台史所</option>\
-                        <option value="taiwanCulture">台文所</option>');
-                break;
-            case 'doctor':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="chineseTeaching">華文教學博士</option>');
-                break;
-        }
-    }
-
-    function showDepartmentScience() {
-        switch ($(".degreeSelect").val()) {
-            case 'bachelor':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="psycology">心理系</option>\
-                        <option value="mathematics">應數系</option>\
-                        <option value="computerScience">資科系</option>');
-                break;
-            case 'master':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="nerve">神經所</option>\
-                        <option value="physics">應物所</option>\
-                        <option value="computerScience">資科所</option>');
-                break;
-            case 'doctor':
-                $(".departmentSelect").html('\
-                        <option value="none">-</option>\
-                        <option value="societyAI">社群與人智博士</option>');
-                break;
-        }
+        $("#selection-div-" + getId() +" .departmentSelect").html(row);
     }
 
 </script>
