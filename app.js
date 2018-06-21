@@ -36,9 +36,32 @@ app.use('/index', indexRouter);
 app.use('/course', courseRouter);
 app.use('/curriculum', curriculumRouter);
 app.use('/admin', adminRouter);
+//////////////mysql connect
+const mysql = require("mysql");
+const connection = mysql.createConnection({
+	host:'localhost',
+	user:'root',
+	password:'aaa123',
+	database:'courseSelectingDb'
+});
+connection.connect((err)=> {
+	if (err) {
+		console.log("mysql connect fail");
+	}
+	else {
+		console.log("mysql connect sucess");
+	}
+})
+/////////////////////
+var temp = {};
+connection.query("select * from course where ID < 102000000",(err, rows, fields)=> {
+//	if(err) throw err;
+	temp = rows;
+});
 
 app.get('/', (req, res) => {
-    res.render('login');
+	res.send(temp);
+    //res.render('login');
 });
 
 app.listen(port, () => {
