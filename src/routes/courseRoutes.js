@@ -3,13 +3,13 @@ const {MongoClient} = require('mongodb');
 
 const courseRouter = express.Router();
 const router = function () {
-    courseRouter.use((req, res, next) => {
-        if (req.user) {
-            next();
-        } else {
-            res.redirect('/');
-        }
-    });
+    // courseRouter.use((req, res, next) => {
+    //     if (req.user) {
+    //         next();
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    // });
     courseRouter.route('/')
         .get((req, res) => {
             (async function findAllCourses(){
@@ -37,7 +37,7 @@ const router = function () {
                     const db = client.db(dbName);
                     const coll = db.collection('courses');
                     const rlt_findManyCourses = await coll.find({department: req.body.department, degree: req.body.degree}).toArray();
-                    console.log(req.body)
+                    console.log(req.body);
                     res.json(rlt_findManyCourses);
                 }catch(err){
                     if(err)

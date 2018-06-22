@@ -13,13 +13,13 @@ const allCurriculum = [
 
 const curriculumRouter = express.Router();
 const router = function () {
-    curriculumRouter.use((req, res, next) => {
-        if (req.user) {
-            next();
-        } else {
-            res.redirect('/');
-        }
-    });
+    // curriculumRouter.use((req, res, next) => {
+    //     if (req.user) {
+    //         next();
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    // });
     curriculumRouter.route('/')
         .get((req, res) => {
             res.render(

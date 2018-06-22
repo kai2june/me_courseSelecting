@@ -1,175 +1,148 @@
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <title><%= title %></title>
-    <script src="/js/jquery.slim.min.js"
+    <head>
+        <title>選課系統</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <script src="js/jquery.min.js"></script>
+        <script src="js/skel.min.js"></script>
+        <script src="js/skel-layers.min.js"></script>
+        <script src="js/init.js"></script>
+        <noscript>
+            <link rel="stylesheet" href="css/skel.css" />
+            <link rel="stylesheet" href="css/style.css" />
+            <link rel="stylesheet" href="css/style-xlarge.css" />
+        </noscript>
+        <script src="/js/jquery.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
 
-    <script>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous">
+        </script>
+        <script src="/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous">
+        </script>
+        <script>
         $(document).ready(function () {
             $("#select option").on("click", function () {
                 alert('It works');
             });
         });
-    </script>
-
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">NCCU course system</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/index">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/curriculum">Curriculum</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/course">All courses</a>
-            </li>
-            <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Course condition</a>
-            </li> -->
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-<!--<h1>Welcome to <%= title %></h1>-->
-<!--<% for(let i = 0;i < nav.length;i++){ %>-->
-<!--<li>-->
-<!--<a href="<%= nav[i].link %>"><%= nav[i].title %></a>-->
-<!--</li>-->
-<!--<% } %>-->
-
-
-<!--        <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
-            <% for(let i = 0; i < college.length; i++){ %>
-                <select id="academySelect" onchange="show()">
-                    <% for(let j = 0; j < college[i].length; j++){ %>
-                        <option value="<%= college[i][j] %>"><%= college[i][j] %></option>
-                    <% } %>
-                </select>
-            <% } %>
-        </form>-->
-
-<form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
-    <div class="selection-div" >
-        <div id="selection-div-1">
-            <select name="academy" class="academySelect" onchange="showDegree()">
-                <option value="none">-</option>
-                <option value="integrated_general">整開_通識</option>
-                <option value="minor_credited_internship">輔系_學分學程_教學實習與實務</option>
-                <option value="service_PE_defenseEducation">服務學習_體育_全民國防課程</option>
-                <option value="literature">文學院</option>
-                <option value="science">理學院</option>
-                <option value="society">社科院</option>
-                <option value="law">法學院</option>
-                <option value="commerce">商學院</option>
-                <option value="foreign">外文學院</option>
-                <option value="broadcast">傳播學院</option>
-                <option value="international">國際學院</option>
-                <option value="education">教育學院</option>
-            </select>
-            <select name="degree" class="degreeSelect" onchange="showDepartment()"></select>
-            <select name="department" class="departmentSelect"></select>
+        </script>
+    </head>
+    <body>
+        <header id="header" class="skel-layers-fixed">
+            <h1><a href="https://i.nccu.edu.tw/Login.aspx?ReturnUrl=%2fdefault.aspxl">INCCU</a></h1>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="http://www.nccu.edu.tw/">政大首頁</a></li>
+                        <li><a href="/">系統首頁</a></li>
+                        <li><a href="/curriculum" class="button special">我的課表</a></li>
+                        <li><a href="/index" class="button special">課程查詢</a></li>
+                    </ul>
+                </nav>
+        </header>
+        <div class="container">
+            <br>
+            <div class="8u" style="margin: auto">
+                <form name="queryCourseForm" id="queryCourseForm" action="/course" method="post">
+                    <div class="selection-div" >
+                        <div class="selection-div-inside" id="selection-div-1">
+                            <select name="academy" class="academySelect" onchange="showDegree(this)">
+                                <option value="none">-</option>
+                                <option value="integrated_general">整開_通識</option>
+                                <option value="minor_credited_internship">輔系_學分學程_教學實習與實務</option>
+                                <option value="service_PE_defenseEducation">服務學習_體育_全民國防課程</option>
+                                <option value="literature">文學院</option>
+                                <option value="science">理學院</option>
+                                <option value="society">社科院</option>
+                                <option value="law">法學院</option>
+                                <option value="commerce">商學院</option>
+                                <option value="foreign">外文學院</option>
+                                <option value="broadcast">傳播學院</option>
+                                <option value="international">國際學院</option>
+                                <option value="education">教育學院</option>
+                            </select>
+                            <br>
+                            <select name="degree" class="degreeSelect" onchange="showDepartment(this)"></select>
+                            <br>
+                            <select name="department" class="departmentSelect"></select>
+                            <button type="button" name="remove" class="removeBtn" style="display:inline-block" onclick="removeDiv(this)">-</button>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" name="plus" class="plusBtn" onclick="newSelect()">+</button>
+                    <input type="submit" value="query">
+                </form>
+            </div>
         </div>
-    </div>
-    <button type="button" name="plus" class="plusBtn" onclick="newSelect()">+</button>
-    <input type="submit" value="query">
-</form>
-
-<script>
-    const college = {
-        'integrated_general':{
-            'integrated':['management','economics'],
-            'general':['humanities','socialSciences','naturalSciences']
-        },
-        'minor_credited_internship':{
-            'minor':['trade','accounting','japanese'],
-            'credited':['creativity','patent','artIndustry'],
-            'internship':['internship']
-        },
-        'service_PE_defenseEducation':{
-            'service':['serviceCourse'],
-            'PE':['PErequired','PEacquired','PEschoolTeam'],
-            'defenseEducation':['defenseEducationCourse']
-        },
-        'society':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'law':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'commerce':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'foreign':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'broadcast':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'international':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'education':{
-            'bachelor':[],
-            'master': [],
-            'doctor':[]
-        },
-        'literature': {
-            'bachelor': ['chinese','history','philosophy'],
-            'master': ['chineseM','libraryInformation','religion','taiwanHistory','taiwanCulture'],
-            'doctor': ['chineseTeaching']
-        },
-        'science': {
-            'bachelor': ['psycology','mathematics','computerScience'],
-            'master': ['nerve','physics','computerScienceM'],
-            'doctor': ['societyAI']
-        }
-    };
-    const value2name={"integrated_general":"整開_通識","minor_credited_internship":"輔系_學分學程_教學實習與實務",
+        <script>
+            const college = {
+                'integrated_general':{
+                'integrated':['management','economics'],
+                'general':['humanities','socialSciences','naturalSciences']
+                },
+                'minor_credited_internship':{
+                'minor':['trade','accounting','japanese'],
+                'credited':['creativity','patent','artIndustry'],
+                'internship':['internship']
+                },
+                'service_PE_defenseEducation':{
+                'service':['serviceCourse'],
+                'PE':['PErequired','PEacquired','PEschoolTeam'],
+                'defenseEducation':['defenseEducationCourse']
+                },
+                'society':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'law':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'commerce':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'foreign':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'broadcast':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'international':{
+                'bachelor':[],
+                'master': [],
+                'doctor':[]
+                },
+                'education':{
+                    'bachelor':[],
+                    'master': [],
+                    'doctor':[]
+                },
+                'literature': {
+                    'bachelor': ['chinese','history','philosophy'],
+                    'master': ['chineseM','libraryInformation','religion','taiwanHistory','taiwanCulture'],
+                    'doctor': ['chineseTeaching']
+                },
+                'science': {
+                    'bachelor': ['psycology','mathematics','computerScience'],
+                    'master': ['nerve','physics','computerScienceM'],
+                    'doctor': ['societyAI']
+                }
+            };
+        const value2name={"integrated_general":"整開_通識","minor_credited_internship":"輔系_學分學程_教學實習與實務",
         "service_PE_defenseEducation":"服務學習_體育_全民國防課程",
         "literature":"文學院","science":"理學院","society":"社科院","law":"法學院","commerce":"商學院",
         "foreign":"外文學院","broadcast":"傳播學院","international":"國際學院","education":"教育學院",
@@ -183,71 +156,84 @@
         "psycology":"心理系", "mathematics":"應數系", "computerScience":"資科系", "nerve":"神經所", "physics":"應物所", "computerScienceM":"資科所", "societyAI":"社群與人智博士",
     };
 
-    var id=1;//use to generate dynamic id
+var id=1;//use to generate dynamic id
+var divIdList=['selection-div-1'];
+function test() {
+    for(var key in value2name)
+        console.log(key+" "+value2name[key]);
+}
 
-    function test() {
-        for(var key in value2name)
-            console.log(key+" "+value2name[key]);
-    }
-
-    $("#queryCourseForm").submit(function (event) {
+$("#queryCourseForm").submit(function (event) {
         //error handling
         if(!checkIfSelect()){
-            alert("Please select!!");
-            event.preventDefault();
+        alert("Please select!!");
+        event.preventDefault();
         }
 
-    });
-    function checkIfSelect(){//error handling
-        for(var i=1;i<=getId();i++) {
-            if ($("#selection-div-" + i + " .academySelect").val() === "none" || $("#selection-div-" + i + " .degreeSelect").val() === "none" || $("#selection-div-" + i + " .departmentSelect").val() === "none") {
-                return false;
-            }
+        });
+function checkIfSelect(){//error handling
+    for(var i=1;i<=getId();i++) {
+        if ($("#selection-div-" + i + " .academySelect").val() === "none" || $("#selection-div-" + i + " .degreeSelect").val() === "none" || $("#selection-div-" + i + " .departmentSelect").val() === "none") {
+            return false;
         }
-        return true;
     }
-    function getId(){
-        return id;
+    return true;
+}
+function getId(){
+    return id;
+}
+function newSelect() {
+    if(!checkIfSelect()){
+        alert("Don't be too greedy!");
+        return;
     }
-    function newSelect() {
-        if(!checkIfSelect()){
-            alert("Don't be too greedy!");
-            return;
-        }
-        id++;
-        console.log("New Select Block!");
-        $(".selection-div").append("<div id=\"selection-div-"+getId()+"\"></div>");
-        $("#selection-div-1 .academySelect").clone().appendTo($("#selection-div-"+getId()));
-        $("#selection-div-1 .degreeSelect").clone().appendTo($("#selection-div-"+getId()));
-        $("#selection-div-1 .departmentSelect").clone().appendTo($("#selection-div-"+getId()));
-        $("#selection-div-"+getId()).append("<button type=\"button\" name=\"remove\" class=\"removeBtn\" style=\"display: inline-block\" onclick=\"removeDiv(this)\">-</button>");
-    }
-    function removeDiv(btn){
-        var target=$(btn).closest('div').attr('id');
-        $('#'+target).remove();
-    }
+    id++;
+    divIdList.push('selection-div-'+id);
+    console.log("New Select Block!");
 
-    function showDegree() {
-        $("#selection-div-" + getId() +" .departmentSelect").html('<option value="none">-</option>');
-        var academySelect=$("#selection-div-" + getId() +" .academySelect").val();
-        var row=["<option value=\"none\">-</option>"];
-        for(key in college[academySelect]) {
-            //console.log(key);
-            row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
-        }
-        $("#selection-div-" + getId() +" .degreeSelect").html(row);
+    $(".selection-div").append("<div class=\"selection-div-inside\" id=\"selection-div-"+getId()+"\"></div>");
+    $("#"+divIdList[0]+" .academySelect").clone().appendTo($("#selection-div-"+getId()));
+    $("#"+divIdList[0]+" .degreeSelect").clone().appendTo($("#selection-div-"+getId()));
+    $("#"+divIdList[0]+" .departmentSelect").clone().appendTo($("#selection-div-"+getId()));
+    $("#"+divIdList[0]+" .removeBtn").clone().appendTo($("#selection-div-"+getId()));
+}
+function removeDiv(btn){
+    if(divIdList.length==1){
+        alert("At least 1 selection to query!");
+        return;
     }
+    var target=$(btn).closest('div').attr('id');
+    $('#'+target).remove();
+    var index = divIdList.indexOf(target);
+    if (index > -1) {
+        divIdList.splice(index, 1);
+        console.log(divIdList)
+    }
+}
 
-    function showDepartment() {
-        var academySelect=$("#selection-div-" + getId() +" .academySelect").val();
-        var degreeSelect=$("#selection-div-" + getId() +" .degreeSelect").val();
-        var row=["<option value=\"none\">-</option>"];
-        for(var i=0;i<college[academySelect][degreeSelect].length;i++) {
-            key=college[academySelect][degreeSelect][i];
-            row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
-        }
-        $("#selection-div-" + getId() +" .departmentSelect").html(row);
+function showDegree(me) {
+    var myId=$(me).closest('div').attr('id');
+    $("#"+myId +" .departmentSelect").html('<option value="none">-</option>');
+    var academySelect=$("#"+myId +" .academySelect").val();
+    var row=["<option value=\"none\">-</option>"];
+    for(key in college[academySelect]) {
+        //console.log(key);
+        row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
     }
+    $("#"+myId +" .degreeSelect").html(row);
+}
+
+function showDepartment(me) {
+    var myId=$(me).closest('div').attr('id');
+    var academySelect=$("#"+myId+" .academySelect").val();
+    var degreeSelect=$("#"+myId +" .degreeSelect").val();
+    var row=["<option value=\"none\">-</option>"];
+    for(var i=0;i<college[academySelect][degreeSelect].length;i++) {
+        key=college[academySelect][degreeSelect][i];
+        row += "<option value=\"" + key + "\">" + value2name[key] + "</option>";
+    }
+    $("#"+myId +" .departmentSelect").html(row);
+}
 
 </script>
 </body>

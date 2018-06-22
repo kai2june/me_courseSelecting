@@ -7,13 +7,13 @@ const degree = ['-', '學士班', '碩士班', '博士班'];
 const department = [['-'], ['資科系'], ['中文系'], ['社會系'], ['法律系'], ['金融系'], ['歐語系'], ['新聞系'], ['外交系'], ['教育系']];
 
 const router = function () {
-    indexRouter.use((req, res, next) => {
-        if (req.user) {
-            next();
-        } else {
-            res.redirect('/');
-        }
-    });
+    // indexRouter.use((req, res, next) => {
+    //     if (req.user) {
+    //         next();
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    // });
     indexRouter.route('/')
         .get((req, res) => {
             res.render(
