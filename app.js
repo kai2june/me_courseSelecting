@@ -36,6 +36,61 @@ app.use('/index', indexRouter);
 app.use('/course', courseRouter);
 app.use('/curriculum', curriculumRouter);
 app.use('/admin', adminRouter);
+///////////////////////////////////
+const mod = require('./backendSys.js');
+//////////////////////////////////
+
+/////////////////////////////backend API sample//////////////////////////
+
+//////////////getStudent
+//
+//
+///////////////////////
+
+/////////////search
+//
+//search has three parameters:mainCondition, timeCondtition and retrival number
+
+//here is a sample of search condition setting 
+/*
+var timeCon = [];
+for (i = 0; i < 7; i++) {
+	var temp = []
+	for (j = 0; j < 15; j++) {
+		temp.push(0);
+	}
+	timeCon.push(temp);
+}
+timeCon[0][9] = 1;
+var mainCon = [];
+mainCon.push([7, 03]);
+mainCon.push([7, 01]);
+*/	
+//  mod.search(mainCon, timeCon, 10, (obj)=>{console.log(obj)});
+//
+////////////////////////
+
+////////////selectCourse
+//
+//
+/*
+	mod.getStudent("104703100",(obj)=>{
+		mod.search(mainCon, timeCon, 5, (obj)=>{
+			console.log(obj);
+			var cour = [];
+			for (i = 0; i < obj.length; i++) {
+				var temp = [];
+				temp.push(obj[i]);
+				temp.push(i);
+				cour.push(temp);
+			}
+			mod.selectCourse(cour, ()=>{
+				console.log("done");
+			});
+		});
+	});
+*/
+/////////////////////////
 
 app.get('/', (req, res) => {
     res.render('login');
