@@ -39,8 +39,18 @@ const courses = [
         point: 3,
         time: 'MonD56',
         place: 'BaiNien113',
-        department: 'chinese',
+        department: 'chineseM',
         degree: 'master',
+        level: 'general'
+    },
+    {
+        class: 'Chinese poem',
+        teacher: 'TzenWeiChieh',
+        point: 3,
+        time: 'Fri234',
+        place: 'Zitow203',
+        department: 'chinese',
+        degree: 'bachelor',
         level: 'general'
     }
 ];
@@ -57,22 +67,19 @@ const router = function () {
     adminRouter.route('/insertFakeCourses')
         .get( (req,res) => {
             (async function insertFakeCourse(){
-
+                const url = 'mongodb://localhost:27017';
+                const dbName = 'courseApp';
+                try{
+                    const client = await MongoClient.connect(url);
+                    const db = client.db(dbName);
+                    const coll = db.collection('courses');
+                    const rlt_insertFakeCourses = await coll.insertMany(courses);
+                    res.json(rlt_insertFakeCourses);
+                }catch(err){
+                    if(err)
+                        console.log(err);
+                }
             }());
-            // (async function insertFakeCourse(){
-            //     const url = 'mongodb://localhost:27017';
-            //     const dbName = 'courseApp';
-            //     try{
-            //         const client = await MongoClient.connect(url);
-            //         const db = client.db(dbName);
-            //         const coll = db.collection('courses');
-            //         const rlt_insertFakeCourses = await coll.insertMany(courses);
-            //         res.json(rlt_insertFakeCourses);
-            //     }catch(err){
-            //         if(err)
-            //             console.log(err);
-            //     }
-            // }());
         })
     
     return adminRouter;
