@@ -48,6 +48,7 @@ const router = function () {
                             };
                             query_arr[i] = query;
                         }
+                        console.log(`query_arr=${query_arr}`);
                         rlt_findManyCourses = await coll.find({ $or: query_arr }).toArray();
                     }
                     // res.json(rlt_findManyCourses);
