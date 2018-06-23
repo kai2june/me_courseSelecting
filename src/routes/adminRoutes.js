@@ -57,19 +57,22 @@ const router = function () {
     adminRouter.route('/insertFakeCourses')
         .get( (req,res) => {
             (async function insertFakeCourse(){
-                const url = 'mongodb://localhost:27017';
-                const dbName = 'courseApp';
-                try{
-                    const client = await MongoClient.connect(url);
-                    const db = client.db(dbName);
-                    const coll = db.collection('courses');
-                    const rlt_insertFakeCourses = await coll.insertMany(courses);
-                    res.json(rlt_insertFakeCourses);
-                }catch(err){
-                    if(err)
-                        console.log(err);
-                }
+
             }());
+            // (async function insertFakeCourse(){
+            //     const url = 'mongodb://localhost:27017';
+            //     const dbName = 'courseApp';
+            //     try{
+            //         const client = await MongoClient.connect(url);
+            //         const db = client.db(dbName);
+            //         const coll = db.collection('courses');
+            //         const rlt_insertFakeCourses = await coll.insertMany(courses);
+            //         res.json(rlt_insertFakeCourses);
+            //     }catch(err){
+            //         if(err)
+            //             console.log(err);
+            //     }
+            // }());
         })
     
     return adminRouter;
